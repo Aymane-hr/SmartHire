@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('applications', \App\Http\Controllers\ApplicationController::class);
     Route::resource('skills', \App\Http\Controllers\SkillController::class);
     Route::resource('messages', \App\Http\Controllers\MessageController::class);
+    Route::resource('interviews', \App\Http\Controllers\InterviewController::class);
+    Route::resource('notifications', \App\Http\Controllers\NotificationController::class);
 
 });
 
