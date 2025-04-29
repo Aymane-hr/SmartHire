@@ -17,9 +17,9 @@ return new class extends Migration
             $table->integer('id')->primary()->autoIncrement();
             $table->integer('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('work_id')->nullable();
-            $table->foreign('work_id')->references('id')->on('works');
-            $table->enum('status', [" pending", "accepted", "rejected"])->default("pending");
+            $table->integer('job_id')->nullable();
+            $table->foreign('job_id')->references('id')->on('jobs');
+            $table->enum('status', [""])->nullable();
             $table->timestamp('created_at')->nullable();
         });
 

@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('works', function (Blueprint $table) {
+        Schema::create('matches', function (Blueprint $table) {
             $table->integer('id')->primary()->autoIncrement();
-            $table->integer('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
-            $table->string('location')->nullable();
+            $table->integer('cv_id')->nullable();
+            $table->foreign('cv_id')->references('id')->on('cvs');
+            $table->integer('job_id')->nullable();
+            $table->foreign('job_id')->references('id')->on('jobs');
+            $table->float('match_score')->nullable();
             $table->timestamp('created_at')->nullable();
         });
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('matches');
     }
 };

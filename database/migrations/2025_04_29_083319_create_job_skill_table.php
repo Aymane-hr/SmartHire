@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('job_skill', function (Blueprint $table) {
-            $table->integer('work_id')->nullable();
-            $table->foreign('work_id')->references('id')->on('works');
+            $table->integer('job_id')->nullable();
+            $table->foreign('job_id')->references('id')->on('jobs');
             $table->integer('skill_id')->nullable();
             $table->foreign('skill_id')->references('id')->on('skills');
         });
