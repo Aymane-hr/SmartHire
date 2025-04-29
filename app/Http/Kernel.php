@@ -28,17 +28,16 @@ class Kernel extends HttpKernel
 
         'api' => [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
 
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'is_admin' => \App\Http\Middleware\IsAdmin::class,
-        'is_recruiter' => \App\Http\Middleware\IsRecruiter::class,
-        'is_user' => \App\Http\Middleware\IsUser::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'user' => \App\Http\Middleware\IsUser::class,
+        'admin' => \App\Http\Middleware\IsAdmin::class,
+        'recruiter' => \App\Http\Middleware\IsRecruiter::class,
     ];
+    
 }

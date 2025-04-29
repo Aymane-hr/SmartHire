@@ -7,6 +7,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    $user = auth()->user();
+
+    if ($user->is_admin) {
+        return redirect()->route('admin.dashboard');
+    } elseif ($user->is_recruiter) {
+        return redirect()->route('recruiter.dashboard');
+    } else {
+        return redirect()->route('candidat.dashboard');
+    }
+})->middleware(['auth'])->name('dashboard');
+
+
 
 //Admin
 use App\Http\Controllers\Admin\ApplicationController as AdminApplicationController;
@@ -54,10 +67,5 @@ Route::prefix('candidat')->middleware(['auth', 'is_user'])->name('candidat.')->g
 });
 
 
-
-
-
-
-
-
+// Auth
 require __DIR__.'/auth.php';
