@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Candidat;
+namespace App\Http\Controllers\Candidat;
 
 use App\Http\Controllers\Controller;
 use App\Models\Message;
