@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Job;
 use Illuminate\Http\Request;
 
-class JobController extends Controller
+class AdminJobController extends Controller
 {
     public function index()
     {

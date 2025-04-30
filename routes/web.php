@@ -1,50 +1,44 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
+// Auth route
+require __DIR__.'/auth.php';
+
+// Landing page
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Redirect based on user role
 Route::get('/dashboard', function () {
-    $user = auth()->user();
+    $user = Auth::user();
 
-    if ($user->is_admin) {
-        return redirect()->route('admin.dashboard');
-    } elseif ($user->is_recruiter) {
-        return redirect()->route('recruiter.dashboard');
-    } else {
-        return redirect()->route('candidat.dashboard');
+    switch ($user->role) {
+        case 'admin':
+            return redirect()->route('admin.dashboard');
+        case 'recruiter':
+            return redirect()->route('recruiter.dashboard');
+        case 'user':
+            return redirect()->route('candidat.dashboard');
+        default:
+            abort(403, 'Unauthorized');
     }
 })->middleware(['auth'])->name('dashboard');
 
-
-
-//Admin
-use App\Http\Controllers\Admin\ApplicationController as AdminApplicationController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Admin\InterviewController as AdminInterviewController;
-use App\Http\Controllers\Admin\JobController as AdminJobController;
-use App\Http\Controllers\Admin\MessageController as AdminMessageController;
-use App\Http\Controllers\Admin\NotificationController as AdminNotificationController;
-use App\Http\Controllers\Admin\UserController as AdminUserController;
-
-//Candidat
-use App\Http\Controllers\Candidat\ApplicationController as CandidatApplicationController;
-use App\Http\Controllers\Candidat\DashboardController as CandidatDashboardController;
-use App\Http\Controllers\Candidat\MessageController as CandidatMessageController;
-use App\Http\Controllers\Candidat\ProfileController as CandidatProfileController;
-
-//Recruiter
-use App\Http\Controllers\Recruiter\ApplicationController as RecruiterApplicationController;
-use App\Http\Controllers\Recruiter\DashboardController as RecruiterDashboardController;
-use App\Http\Controllers\Recruiter\JobController as RecruiterJobController;
-use App\Http\Controllers\Recruiter\MessageController as RecruiterMessageController;
-
+// Admin
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminJobController;
+use App\Http\Controllers\Admin\AdminApplicationController;
+use App\Http\Controllers\Admin\AdminMessageController;
+use App\Http\Controllers\Admin\AdminInterviewController;
+use App\Http\Controllers\Admin\AdminNotificationController;
 
 Route::prefix('admin')->middleware(['auth', 'is_admin'])->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
     Route::resource('users', AdminUserController::class);
     Route::resource('jobs', AdminJobController::class);
     Route::resource('applications', AdminApplicationController::class);
@@ -53,6 +47,11 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->name('admin.')->group(
     Route::resource('notifications', AdminNotificationController::class);
 });
 
+// Recruiter
+use App\Http\Controllers\Recruiter\RecruiterDashboardController;
+use App\Http\Controllers\Recruiter\RecruiterApplicationController;
+use App\Http\Controllers\Recruiter\RecruiterJobController;
+use App\Http\Controllers\Recruiter\RecruiterMessageController;
 
 Route::prefix('recruiter')->middleware(['auth', 'is_recruiter'])->name('recruiter.')->group(function () {
     Route::get('/dashboard', [RecruiterDashboardController::class, 'index'])->name('dashboard');
@@ -61,6 +60,11 @@ Route::prefix('recruiter')->middleware(['auth', 'is_recruiter'])->name('recruite
     Route::resource('messages', RecruiterMessageController::class);
 });
 
+// Candidat
+use App\Http\Controllers\Candidat\CandidatDashboardController;
+use App\Http\Controllers\Candidat\CandidatApplicationController;
+use App\Http\Controllers\Candidat\CandidatMessageController;
+use App\Http\Controllers\Candidat\CandidatProfileController;
 
 Route::prefix('candidat')->middleware(['auth', 'is_user'])->name('candidat.')->group(function () {
     Route::get('/dashboard', [CandidatDashboardController::class, 'index'])->name('dashboard');
@@ -68,7 +72,3 @@ Route::prefix('candidat')->middleware(['auth', 'is_user'])->name('candidat.')->g
     Route::resource('messages', CandidatMessageController::class);
     Route::resource('profile', CandidatProfileController::class)->only(['index', 'edit', 'update']);
 });
-
-
-// Auth
-require __DIR__.'/auth.php';

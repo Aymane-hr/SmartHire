@@ -8,7 +8,7 @@ use App\Models\Job;
 use App\Models\Application;
 use App\Models\Message;
 
-class DashboardController extends Controller
+class AdminDashboardController extends Controller
 {
     public function dashboard()
     {

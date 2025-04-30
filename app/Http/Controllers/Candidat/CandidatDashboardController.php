@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Candidat;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class CandidatDashboardController extends Controller
 {
     public function index()
     {

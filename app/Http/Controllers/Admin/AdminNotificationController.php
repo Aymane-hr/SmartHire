@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\DatabaseNotification;
 
-class NotificationController extends Controller
+class AdminNotificationController extends Controller
 {
     public function index()
     {

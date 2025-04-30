@@ -1,4 +1,7 @@
-@extends('layouts.admin')
+{{-- @dd(get_defined_vars()) --}}
+
+@extends('layouts.app')
+@section('title', 'Admin Dashboard')
 
 @section('content')
 <div class="py-8">

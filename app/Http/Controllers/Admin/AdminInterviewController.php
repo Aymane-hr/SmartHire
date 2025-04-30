@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Interview;
 use Illuminate\Http\Request;
 
-class InterviewController extends Controller
+class AdminInterviewController extends Controller
 {
     public function index()
     {

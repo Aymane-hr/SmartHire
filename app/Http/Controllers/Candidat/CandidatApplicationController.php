@@ -7,7 +7,7 @@ use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ApplicationController extends Controller
+class CandidatApplicationController extends Controller
 {
     public function index()
     {

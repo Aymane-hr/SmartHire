@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Application;
 use Illuminate\Http\Request;
 
-class ApplicationController extends Controller
+class AdminApplicationController extends Controller
 {
     public function index()
     {
