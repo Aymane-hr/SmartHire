@@ -3,7 +3,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="flex justify-between items-center mb-4">
+    {{-- <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-bold">Users List</h2>
         <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Add User</a>
     </div>
@@ -40,5 +40,6 @@
         <div class="mt-4">
             {{ $users->links() }}
         </div>
-    </div>
+    </div> --}}
+    hello world
 @endsection

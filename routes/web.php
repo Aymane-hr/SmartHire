@@ -17,11 +17,11 @@ Route::get('/dashboard', function () {
 
     switch ($user->role) {
         case 'admin':
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.users.index'); // ✅
         case 'recruiter':
-            return redirect()->route('recruiter.dashboard');
+            return redirect()->route('recruiter.dashboard'); // ✅
         case 'user':
-            return redirect()->route('candidat.dashboard');
+            return redirect()->route('candidat.dashboard'); // ✅
         default:
             abort(403, 'Unauthorized');
     }
@@ -38,7 +38,6 @@ use App\Http\Controllers\Admin\AdminNotificationController;
 
 Route::prefix('admin')->middleware(['auth', 'is_admin'])->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
     Route::resource('users', AdminUserController::class);
     Route::resource('jobs', AdminJobController::class);
     Route::resource('applications', AdminApplicationController::class);
@@ -49,15 +48,15 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->name('admin.')->group(
 
 // Recruiter
 use App\Http\Controllers\Recruiter\RecruiterDashboardController;
-use App\Http\Controllers\Recruiter\RecruiterApplicationController;
+// use App\Http\Controllers\Recruiter\RecruiterApplicationController;
 use App\Http\Controllers\Recruiter\RecruiterJobController;
 use App\Http\Controllers\Recruiter\RecruiterMessageController;
 
 Route::prefix('recruiter')->middleware(['auth', 'is_recruiter'])->name('recruiter.')->group(function () {
     Route::get('/dashboard', [RecruiterDashboardController::class, 'index'])->name('dashboard');
-    Route::resource('applications', RecruiterApplicationController::class);
-    Route::resource('jobs', RecruiterJobController::class);
-    Route::resource('messages', RecruiterMessageController::class);
+    // Route::resource('applications', RecruiterApplicationController::class);
+    // Route::resource('jobs', RecruiterJobController::class);
+    // Route::resource('messages', RecruiterMessageController::class);
 });
 
 // Candidat

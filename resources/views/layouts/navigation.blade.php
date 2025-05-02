@@ -15,22 +15,22 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('users.*')">
                         {{ __('Users') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('jobs.index')" :active="request()->routeIs('jobs.*')">
+                    <x-nav-link :href="route('admin.jobs.index')" :active="request()->routeIs('jobs.*')">
                         {{ __('Jobs') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
+                    <x-nav-link :href="route('admin.applications.index')" :active="request()->routeIs('applications.*')">
                         {{ __('Applications') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.*')">
+                    <x-nav-link :href="route('admin.messages.index')" :active="request()->routeIs('messages.*')">
                         {{ __('Messages') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('interviews.index')" :active="request()->routeIs('interviews.*')">
+                    <x-nav-link :href="route('admin.interviews.index')" :active="request()->routeIs('interviews.*')">
                         {{ __('Interviews') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('notifications.index')" :active="request()->routeIs('notifications.*')">
+                    <x-nav-link :href="route('admin.notifications.index')" :active="request()->routeIs('notifications.*')">
                         {{ __('Notifications') }}
                     </x-nav-link>
                 </div>
@@ -51,7 +51,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('candidat.profile.edit', Auth::user()->id)">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
@@ -87,22 +87,22 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+            <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('users.*')">
                 {{ __('Users') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('jobs.index')" :active="request()->routeIs('jobs.*')">
+            <x-responsive-nav-link :href="route('admin.jobs.index')" :active="request()->routeIs('jobs.*')">
                 {{ __('Jobs') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('applications.index')" :active="request()->routeIs('applications.*')">
+            <x-responsive-nav-link :href="route('admin.applications.index')" :active="request()->routeIs('applications.*')">
                 {{ __('Applications') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.*')">
+            <x-responsive-nav-link :href="route('admin.messages.index')" :active="request()->routeIs('messages.*')">
                 {{ __('Messages') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('interviews.index')" :active="request()->routeIs('interviews.*')">
+            <x-responsive-nav-link :href="route('admin.interviews.index')" :active="request()->routeIs('interviews.*')">
                 {{ __('Interviews') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('notifications.index')" :active="request()->routeIs('notifications.*')">
+            <x-responsive-nav-link :href="route('admin.notifications.index')" :active="request()->routeIs('notifications.*')">
                 {{ __('Notifications') }}
             </x-responsive-nav-link>
         </div>
@@ -115,7 +115,7 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('candidat.profile.edit', Auth::user()->id)">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
