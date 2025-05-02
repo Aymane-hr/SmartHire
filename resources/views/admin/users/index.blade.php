@@ -1,6 +1,6 @@
 <!-- resources/views/admin/users/index.blade.php -->
 
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
     {{-- <div class="flex justify-between items-center mb-4">

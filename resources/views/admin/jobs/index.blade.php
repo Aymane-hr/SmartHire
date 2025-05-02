@@ -1,5 +1,8 @@
 <!-- resources/views/admin/jobs/index.blade.php -->
-<x-admin-layout>
+@extends('layouts.app')
+
+@section('content')
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800">Jobs</h2>
     </x-slot>
@@ -40,4 +43,5 @@
             </div>
         </div>
     </div>
-</x-admin-layout>
+
+@endsection()

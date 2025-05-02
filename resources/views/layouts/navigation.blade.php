@@ -15,25 +15,49 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('users.*')">
+
+                    @if(Auth::user()->role === 'admin')
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                         {{ __('Users') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.jobs.index')" :active="request()->routeIs('jobs.*')">
+                    <x-nav-link :href="route('admin.jobs.index')" :active="request()->routeIs('admin.jobs.*')">
                         {{ __('Jobs') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.applications.index')" :active="request()->routeIs('applications.*')">
+                    <x-nav-link :href="route('admin.applications.index')" :active="request()->routeIs('admin.applications.*')">
                         {{ __('Applications') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.messages.index')" :active="request()->routeIs('messages.*')">
+                    <x-nav-link :href="route('admin.messages.index')" :active="request()->routeIs('admin.messages.*')">
                         {{ __('Messages') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.interviews.index')" :active="request()->routeIs('interviews.*')">
+                    <x-nav-link :href="route('admin.interviews.index')" :active="request()->routeIs('admin.interviews.*')">
                         {{ __('Interviews') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.notifications.index')" :active="request()->routeIs('notifications.*')">
+                    <x-nav-link :href="route('admin.notifications.index')" :active="request()->routeIs('admin.notifications.*')">
                         {{ __('Notifications') }}
                     </x-nav-link>
+                    @elseif(Auth::user()->role === 'recruiter')
+                    <x-nav-link :href="route('recruiter.jobs.index')" :active="request()->routeIs('recruiter.jobs.*')">
+                        {{ __('Jobs') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('recruiter.applications.index')" :active="request()->routeIs('recruiter.applications.*')">
+                        {{ __('Applications') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('recruiter.messages.index')" :active="request()->routeIs('recruiter.messages.*')">
+                        {{ __('Messages') }}
+                    </x-nav-link>
+                    @elseif(Auth::user()->role === 'user')
+                    <x-nav-link :href="route('candidat.applications.index')" :active="request()->routeIs('candidat.applications.*')">
+                        {{ __('My Applications') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('candidat.messages.index')" :active="request()->routeIs('candidat.messages.*')">
+                        {{ __('Messages') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('candidat.profile.index')" :active="request()->routeIs('candidat.profile.*')">
+                        {{ __('Profile') }}
+                    </x-nav-link>
+                    @endif
                 </div>
+
             </div>
 
             <!-- Settings Dropdown -->
