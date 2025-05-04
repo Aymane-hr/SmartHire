@@ -11,7 +11,7 @@ class CandidatMessageController extends Controller
 {
     public function index()
     {
-        $messages = Message::where('recipient_id', Auth::id())->get();
+        $messages = Message::where('receiver_id', Auth::id())->get();
         return view('candidat.messages.index', compact('messages'));
     }
 
@@ -23,14 +23,14 @@ class CandidatMessageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'recipient_id' => 'required|exists:users,id',
+            'receiver_id' => 'required|exists:users,id',
             'subject' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
 
         Message::create([
             'sender_id' => Auth::id(),
-            'recipient_id' => $request->recipient_id,
+            'receiver_id' => $request->receiver_id,
             'subject' => $request->subject,
             'body' => $request->body,
         ]);

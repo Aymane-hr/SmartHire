@@ -14,27 +14,27 @@ class AdminUserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
-    // public function edit(User $user)
-    // {
-    //     return view('admin.users.edit', compact('user'));
-    // }
+    public function edit(User $user)
+    {
+        return view('admin.users.edit', compact('user'));
+    }
 
-    // public function update(Request $request, User $user)
-    // {
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'email' => 'required|email',
-    //     ]);
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
 
-    //     $user->update($request->only('name', 'email'));
+        $user->update($request->only('name', 'email'));
 
-    //     return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
-    // }
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+    }
 
-    // public function destroy(User $user)
-    // {
-    //     $user->delete();
+    public function destroy(User $user)
+    {
+        $user->delete();
 
-    //     return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
-    // }
+        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
+    }
 }

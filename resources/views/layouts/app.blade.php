@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,35 +10,58 @@
 
     <title>{{ config('app.name', 'SmartHire') }}</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="{{ asset('assets/css/app.min.css') }}">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}">
+
+
 
     <!-- Styles and Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
-<body class="font-sans antialiased bg-gray-100 text-gray-800">
-    <div class="min-h-screen flex flex-col">
-        
-        <!-- Navigation -->
-        @include('layouts.navigation')
 
-        <!-- Page Heading -->
-        @hasSection('header')
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    @yield('header')
+<body>
+    <div class="loader"></div>
+    <div id="app">
+        <div class="main-wrapper main-wrapper-1">
+            <!-- Main Navbar -->
+            @include('layouts.navbar')
+
+
+            <!-- Main Sidebar -->
+            @include('layouts.sidebar')
+            <!-- Main Content -->
+            <div class="main-content">
+                <div>
+                    @yield('content')
                 </div>
-            </header>
-        @endif
-
-        <!-- Page Content -->
-        <main class="flex-1">
-            @yield('content')
-        </main>
-
+            </div>
+            <footer class="main-footer">
+                <div class="footer-left">
+                    <a href="templateshub.net">Templateshub</a></a>
+                </div>
+                <div class="footer-right">
+                </div>
+            </footer>
+        </div>
     </div>
+    <!-- General JS Scripts -->
+    <script src="{{ asset('assets/js/app.min.js') }}"></script>
+    <!-- JS Libraries -->
+    <script src="{{ asset('assets/bundles/apexcharts/apexcharts.min.js') }}"></script>
+    <!-- Page Specific JS File -->
+    <script src="{{ asset('assets/js/page/index.js') }}"></script>
+    <!-- Template JS File -->
+    <script src="{{ asset('assets/js/scripts.js') }}"></script>
+    <!-- Custom JS File -->
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+
 </body>
+
 </html>

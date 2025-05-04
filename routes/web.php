@@ -17,11 +17,11 @@ Route::get('/dashboard', function () {
 
     switch ($user->role) {
         case 'admin':
-            return redirect()->route('admin.users.index'); // ✅
+            return redirect()->route('admin.users.index'); 
         case 'recruiter':
-            return redirect()->route('recruiter.dashboard'); // ✅
+            return redirect()->route('recruiter.dashboard'); 
         case 'user':
-            return redirect()->route('candidat.dashboard'); // ✅
+            return redirect()->route('candidat.dashboard'); 
         default:
             abort(403, 'Unauthorized');
     }
@@ -48,15 +48,15 @@ Route::prefix('admin')->middleware(['auth', 'is_admin'])->name('admin.')->group(
 
 // Recruiter
 use App\Http\Controllers\Recruiter\RecruiterDashboardController;
-// use App\Http\Controllers\Recruiter\RecruiterApplicationController;
+use App\Http\Controllers\Recruiter\RecruiterApplicationController;
 use App\Http\Controllers\Recruiter\RecruiterJobController;
 use App\Http\Controllers\Recruiter\RecruiterMessageController;
 
 Route::prefix('recruiter')->middleware(['auth', 'is_recruiter'])->name('recruiter.')->group(function () {
     Route::get('/dashboard', [RecruiterDashboardController::class, 'index'])->name('dashboard');
-    // Route::resource('applications', RecruiterApplicationController::class);
-    // Route::resource('jobs', RecruiterJobController::class);
-    // Route::resource('messages', RecruiterMessageController::class);
+    Route::resource('applications', RecruiterApplicationController::class);
+    Route::resource('jobs', RecruiterJobController::class);
+    Route::resource('messages', RecruiterMessageController::class);
 });
 
 // Candidat
@@ -69,5 +69,5 @@ Route::prefix('candidat')->middleware(['auth', 'is_user'])->name('candidat.')->g
     Route::get('/dashboard', [CandidatDashboardController::class, 'index'])->name('dashboard');
     Route::resource('applications', CandidatApplicationController::class);
     Route::resource('messages', CandidatMessageController::class);
-    Route::resource('profile', CandidatProfileController::class)->only(['index', 'edit', 'update']);
+    Route::resource('profile', CandidatProfileController::class)->only(['index', 'edit', 'update','show']);
 });
