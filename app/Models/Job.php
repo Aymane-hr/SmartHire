@@ -24,4 +24,7 @@ class Job extends Model
     {
         return $this->belongsToMany(Skill::class, 'job_skill');
     }
+
+    // public $timestamps = false;
+
 }

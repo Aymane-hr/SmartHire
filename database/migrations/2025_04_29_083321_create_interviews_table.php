@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('application_id')->references('id')->on('applications');
             $table->dateTime('interview_date')->nullable();
             $table->string('zoom_link')->nullable();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

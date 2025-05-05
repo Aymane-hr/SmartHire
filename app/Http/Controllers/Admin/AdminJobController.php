@@ -10,13 +10,13 @@ class AdminJobController extends Controller
 {
     public function index()
     {
-        $jobs = Job::with('company')->latest()->paginate(10);
+        $jobs = Job::with('user')->latest()->paginate(10);
         return view('admin.jobs.index', compact('jobs'));
     }
 
     public function show($id)
     {
-        $job = Job::with('company')->findOrFail($id);
+        $job = Job::with('user')->findOrFail($id);
         return view('admin.jobs.show', compact('job'));
     }
 
@@ -31,7 +31,7 @@ class AdminJobController extends Controller
         $job = Job::findOrFail($id);
         $job->update($request->all());
 
-        return redirect()->route('jobs.index')->with('success', 'Job updated successfully.');
+        return redirect()->route('admin.jobs.index')->with('success', 'Job updated successfully.');
     }
 
     public function destroy($id)
@@ -39,6 +39,6 @@ class AdminJobController extends Controller
         $job = Job::findOrFail($id);
         $job->delete();
 
-        return redirect()->route('jobs.index')->with('success', 'Job deleted successfully.');
+        return redirect()->route('admin.jobs.index')->with('success', 'Job deleted successfully.');
     }
 }
