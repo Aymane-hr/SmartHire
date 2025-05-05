@@ -10,8 +10,30 @@ class AdminApplicationController extends Controller
 {
     public function index()
     {
-        $applications = Application::with('candidate', 'job')->latest()->paginate(10);
-        return view('admin.applications.index', compact('applications'));
+        $statuses = ['accepted', 'pending', 'rejected'];
+        $statusCounts = [];
+
+        foreach ($statuses as $status) {
+            $statusCounts[$status] = Application::where('status', $status)->count();
+        }
+
+        $statusCounts['all'] = Application::count();
+
+        $currentStatus = request()->query('status', 'all');
+
+        $query = Application::with(['user', 'job']);
+
+        if ($currentStatus !== 'all') {
+            $query->where('status', $currentStatus);
+        }
+
+        $applications = $query->paginate(10);
+
+        return view('admin.applications.index', [
+            'applications' => $applications,
+            'statusCounts' => $statusCounts,
+            'currentStatus' => $currentStatus,
+        ]);
     }
 
     public function show($id)

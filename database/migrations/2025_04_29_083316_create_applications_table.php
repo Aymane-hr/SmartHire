@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('job_id')->nullable();
             $table->foreign('job_id')->references('id')->on('jobs');
-            $table->enum('status', [""])->nullable();
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->timestamp('created_at')->nullable();
         });
 

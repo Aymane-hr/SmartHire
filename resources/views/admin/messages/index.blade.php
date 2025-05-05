@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                     @foreach($messages as $message)
-                        <tr class="border-b">
+                        <tr clasjs="border-b">
                             <td class="p-2">{{ $message->sender->name }}</td>
                             <td class="p-2">{{ $message->subject }}</td>
                             <td class="p-2">{{ $message->created_at->format('d-m-Y H:i') }}</td>
