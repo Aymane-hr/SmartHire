@@ -55,6 +55,7 @@ use App\Http\Controllers\Recruiter\RecruiterMessageController;
 Route::prefix('recruiter')->middleware(['auth', 'is_recruiter'])->name('recruiter.')->group(function () {
     Route::get('/dashboard', [RecruiterDashboardController::class, 'index'])->name('dashboard');
     Route::resource('applications', RecruiterApplicationController::class);
+    Route::patch('/applications/{id}/status', [RecruiterApplicationController::class, 'updateStatus'])->name('applications.updateStatus');
     Route::resource('jobs', RecruiterJobController::class);
     Route::resource('messages', RecruiterMessageController::class);
 });

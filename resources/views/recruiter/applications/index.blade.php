@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <div class="row mt-4">
         <div class="col-12">
@@ -16,6 +17,7 @@
                                     <th>Job Title</th>
                                     <th>Created At</th>
                                     <th>Status</th>
+                                    <th>Actions</th> {{-- زر التحديث --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -28,6 +30,25 @@
                                         <div class="badge badge-{{ $app->status === 'pending' ? 'warning' : ($app->status === 'accepted' ? 'primary' : 'danger') }}">
                                             {{ ucfirst($app->status) }}
                                         </div>
+                                    </td>
+                                    <td>
+                                        @if($app->status === 'pending')
+                                            <form action="{{ route('recruiter.applications.updateStatus', $app->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="status" value="accepted">
+                                                <button class="btn btn-success btn-sm">Accept</button>
+                                            </form>
+
+                                            <form action="{{ route('recruiter.applications.updateStatus', $app->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="status" value="rejected">
+                                                <button class="btn btn-danger btn-sm">Reject</button>
+                                            </form>
+                                        @else
+                                            <span class="text-muted">No actions</span>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

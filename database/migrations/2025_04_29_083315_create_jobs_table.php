@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->string('location')->nullable();
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('job_id')->nullable();
             $table->foreign('job_id')->references('id')->on('jobs');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

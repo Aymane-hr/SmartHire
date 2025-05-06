@@ -20,7 +20,7 @@
                                     <th>Recruiter</th>
                                     <th>Location</th>
                                     <th>Created At</th>
-                                    <th>Status</th>
+                                    {{-- <th>Status</th> --}}
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -31,14 +31,14 @@
                                         <td>{{ optional($job->user)->name ?? 'N/A' }}</td>
                                         <td>{{ $job->location }}</td>
                                         <td>{{ $job->created_at->format('d-m-Y') }}</td>
-                                        <td>
+                                        {{-- <td>
                                             <div class="badge badge-{{ 
                                                 $job->status === 'active' ? 'success' : 
                                                 ($job->status === 'closed' ? 'danger' : 'warning') 
                                             }}">
                                                 {{ ucfirst($job->status) }}
                                             </div>
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             <a href="{{ route('admin.jobs.edit', $job->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                             <form action="{{ route('admin.jobs.destroy', $job->id) }}" method="POST" class="d-inline">
