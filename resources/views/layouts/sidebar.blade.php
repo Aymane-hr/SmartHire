@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li class="dropdown {{ request()->routeIs('admin.messages.*') ? 'active' : '' }}">
-                <a href="{{ route('admin.messages.index') }}" class="nav-link">
+                <a href="{{ route('chats') }}" class="nav-link">
                     <i data-feather="message-circle"></i><span>Messages</span>
                 </a>
             </li>
@@ -65,7 +65,7 @@
                 </a>
             </li>
             <li class="dropdown {{ request()->routeIs('recruiter.messages.*') ? 'active' : '' }}">
-                <a href="{{ route('recruiter.messages.index') }}" class="nav-link">
+                <a href="{{ route('chats') }}" class="nav-link">
                     <i data-feather="message-circle"></i><span>Messages</span>
                 </a>
             </li>
@@ -83,7 +83,7 @@
                 </a>
             </li>
             <li class="dropdown {{ request()->routeIs('candidat.messages.*') ? 'active' : '' }}">
-                <a href="{{ route('candidat.messages.index') }}" class="nav-link">
+                <a href="{{ route('chats') }}" class="nav-link">
                     <i data-feather="message-circle"></i><span>Messages</span>
                 </a>
             </li>

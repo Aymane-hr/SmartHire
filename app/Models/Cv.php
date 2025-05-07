@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cv extends Model
 {
     protected $fillable = [
-        'user_id', 'file_path', 'extracted_text', 'score',
+        'user_id',
+        'file_path',
+        'extracted_text',
+        'score',
     ];
 
     public function user()
@@ -17,11 +20,12 @@ class Cv extends Model
 
     public function skills()
     {
-        return $this->belongsToMany(Skill::class, 'cv_skill');
+        return $this->belongsToMany(Skill::class)->withPivot('skill_id', 'cv_id')->withoutTimestamps();
     }
+
 
     public function matches()
     {
-        return $this->hasMany(Matche::class);
+        return $this->hasMany(JobMatche::class);
     }
 }

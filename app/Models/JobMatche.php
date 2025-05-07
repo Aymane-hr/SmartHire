@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Matche extends Model
+class JobMatche extends Model
 {
     protected $fillable = [
         'cv_id', 'job_id', 'match_score',

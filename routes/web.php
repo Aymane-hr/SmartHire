@@ -70,5 +70,5 @@ Route::prefix('candidat')->middleware(['auth', 'is_user'])->name('candidat.')->g
     Route::get('/dashboard', [CandidatDashboardController::class, 'index'])->name('dashboard');
     Route::resource('applications', CandidatApplicationController::class);
     Route::resource('messages', CandidatMessageController::class);
-    Route::resource('profile', CandidatProfileController::class)->only(['index', 'edit', 'update','show']);
+    Route::resource('profile', CandidatProfileController::class);
 });
