@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 // Auth route
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Landing page
 Route::get('/', function () {
@@ -17,11 +17,11 @@ Route::get('/dashboard', function () {
 
     switch ($user->role) {
         case 'admin':
-            return redirect()->route('admin.users.index'); 
+            return redirect()->route('admin.users.index');
         case 'recruiter':
-            return redirect()->route('recruiter.dashboard'); 
+            return redirect()->route('recruiter.dashboard');
         case 'user':
-            return redirect()->route('candidat.dashboard'); 
+            return redirect()->route('candidat.dashboard');
         default:
             abort(403, 'Unauthorized');
     }
@@ -70,5 +70,6 @@ Route::prefix('candidat')->middleware(['auth', 'is_user'])->name('candidat.')->g
     Route::get('/dashboard', [CandidatDashboardController::class, 'index'])->name('dashboard');
     Route::resource('applications', CandidatApplicationController::class);
     Route::resource('messages', CandidatMessageController::class);
-    Route::resource('profile', CandidatProfileController::class);
+    Route::get('/profile', [CandidatProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile', [CandidatProfileController::class, 'store'])->name('profile.store');
 });

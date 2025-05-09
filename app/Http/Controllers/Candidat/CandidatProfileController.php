@@ -3,87 +3,61 @@
 namespace App\Http\Controllers\Candidat;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class CandidatProfileController extends Controller
 {
-    /**
-     * Display listing of all candidates
-     */
     public function index()
     {
-        $user = Auth::user()->load(['skills', 'cvs.skills', 'matches.job']);
-
-        return view('candidat.profile.index', [
-            'user' => $user,
-            'skills' => $user->skills->unique(),
-            'latestCv' => $user->cvs->first(),
-            'matches' => $user->matches
-        ]);
-    }
-    /**
-     * Display authenticated candidate's profile
-     */
-    public function show()
-    {
-        $user = Auth::user()->load([
-            'cvs' => function ($query) {
-                $query->latest()->with('skills');
-            },
-            'matches.job'
-        ]);
-
-        if (!$user) {
-            abort(403, 'Unauthorized access');
-        }
-
-        return view('candidat.profile.show', [
-            'user' => $user,
-            'skills' => $user->skills->unique(),
-            'latestCv' => $user->cvs->first(),
-            'matches' => $user->matches
-        ]);
+        return view('candidat.profile.index');
     }
 
-    /**
-     * Show the form for editing the profile
-     */
-    public function edit()
-    {
-        $user = Auth::user();
-        return view('candidat.profile.edit', [
-            'user' => $user,
-            'skills' => Skill::all(),
-            'userSkills' => $user->skills->pluck('id')->toArray()
-        ]);
-    }
-
-    /**
-     * Update the user profile
-     */
-    public function update(Request $request)
+    public function store(Request $request)
     {
         $user = Auth::user();
 
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:6',
+            'confirm_password' => 'required_with:password|same:password',
+            'avatar' => 'nullable|image|max:2048',
             'phone' => 'nullable|string|max:20',
-            'location' => 'nullable|string|max:255',
-            'skills' => 'nullable|array',
-            'skills.*' => 'exists:skills,id'
+            'city' => 'nullable|string|max:100',
+            'bio' => 'nullable|string|max:500',
+            'skills' => 'nullable|string|max:255',
+            'education' => 'nullable|string|max:255',
+            'experience' => 'nullable|string|max:255',
         ]);
 
-        $user->update($validated);
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'city' => $request->city,
+            'bio' => $request->bio,
+            'skills' => $request->skills,
+            'education' => $request->education,
+            'experience' => $request->experience,
+        ];
 
-        if ($request->has('skills') && $user->latestCv) {
-            $user->latestCv->skills()->sync($validated['skills']);
+        // Handle avatar upload
+        if ($request->hasFile('avatar')) {
+            $avatarName = time() . '.' . $request->file('avatar')->getClientOriginalExtension();
+            $request->file('avatar')->move(public_path('avatars'), $avatarName);
+            $data['avatar'] = $avatarName;
         }
 
-        return redirect()->route('candidat.profile.show')
-            ->with('success', 'Profile updated successfully');
+        // Handle password update
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return back()->with('success', 'Profile updated successfully.');
     }
 }

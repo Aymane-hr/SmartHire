@@ -1,92 +1,167 @@
 @extends('layouts.app')
-
+    
 @section('content')
-<section class="section">
-    <div class="section-header">
-        <h1>My Profile</h1>
-    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">{{ __('Profile') }}</div>
+    
+                <div class="card-body">
+                    <form method="POST" action="{{ route('candidat.profile.store') }}" enctype="multipart/form-data">
 
-    <div class="section-body">
-        <div class="row">
-            <div class="col-md-4">
-                <!-- Profile Card -->
-                <div class="card">
-                    <div class="card-body text-center">
-                        <img src="{{ asset('assets/img/users/user-1.png') }}" class="rounded-circle mb-3" width="120" alt="Profile Image">
-                        <h5 class="mb-0">{{ $user->name }}</h5>
-                        <small class="text-muted">{{ ucfirst($user->role ?? 'Candidate') }}</small>
-                        <div class="mt-3">
-                            <a href="{{ route('candidat.profile.edit') }}" class="btn btn-sm btn-outline-primary">Edit Profile</a>
+                        @csrf
+    
+                        @if (session('success'))
+                            <div class="alert alert-success" role="alert" class="text-danger">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+  
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="name" class="form-label">Avatar: </label>
+                                <input id="avatar" type="file" class="form-control @error('avatar') is-invalid @enderror" name="avatar" value="{{ old('avatar') }}"  autocomplete="avatar">
+  
+                                @error('avatar')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+  
+                            <div class="mb-3 col-md-6">
+                                <img src="/avatars/{{ auth()->user()->avatar }}" style="width:80px;margin-top: 10px;">
+                            </div>
+  
                         </div>
-                    </div>
-                </div>
-
-                <!-- Contact Info -->
-                <div class="card">
-                    <div class="card-header"><h4>Contact Info</h4></div>
-                    <div class="card-body">
-                        <p><strong>Email:</strong> {{ $user->email }}</p>
-                        @if($user->phone)
-                        <p><strong>Phone:</strong> {{ $user->phone }}</p>
-                        @endif
-                        @if($user->location)
-                        <p><strong>Location:</strong> {{ $user->location }}</p>
-                        @endif
-                    </div>
-                </div>
-
-                <!-- Skills -->
-                <div class="card">
-                    <div class="card-header"><h4>Skills</h4></div>
-                    <div class="card-body">
-                        @if($skills->count())
-                            @foreach($skills as $skill)
-                                <span class="badge badge-info mb-1">{{ $skill->name }}</span>
-                            @endforeach
-                        @else
-                            <p class="text-muted">No skills listed.</p>
-                        @endif
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-8">
-                <!-- CV Summary -->
-                <div class="card">
-                    <div class="card-header"><h4>Latest CV Summary</h4></div>
-                    <div class="card-body">
-                        @if($latestCv && $latestCv->extracted_text)
-                            <p>{{ Str::limit($latestCv->extracted_text, 500) }}</p>
-                        @else
-                            <p class="text-muted">No CV uploaded yet.</p>
-                        @endif
-                    </div>
-                </div>
-
-                <!-- Match Scores -->
-                <div class="card">
-                    <div class="card-header"><h4>CV Match Scores</h4></div>
-                    <div class="card-body">
-                        @if($matches->count())
-                            @foreach($matches as $match)
-                                <div class="mb-3">
-                                    <h6>{{ $match->job->title ?? 'Deleted Job' }}</h6>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar"
-                                            style="width: {{ $match->match_score }}%"
-                                            aria-valuenow="{{ $match->match_score }}" aria-valuemin="0" aria-valuemax="100">
-                                            {{ round($match->match_score) }}%
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <p class="text-muted">No match scores available.</p>
-                        @endif
-                    </div>
+  
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="name" class="form-label">Name: </label>
+                                <input class="form-control" type="text" id="name" name="name" value="{{ auth()->user()->name }}" autofocus="" >
+                                @error('name')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+   
+                            <div class="mb-3 col-md-6">
+                                <label for="email" class="form-label">Email: </label>
+                                <input class="form-control" type="text" id="email" name="email" value="{{ auth()->user()->email }}" autofocus="" >
+                                @error('email')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+   
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="password" class="form-label">Password: </label>
+                                <input class="form-control" type="password" id="password" name="password" autofocus="" >
+                                @error('password')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+   
+                            <div class="mb-3 col-md-6">
+                                <label for="confirm_password" class="form-label">Confirm Password: </label>
+                                <input class="form-control" type="password" id="confirm_password" name="confirm_password" autofocus="" >
+                                @error('confirm_password')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+   
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="phone" class="form-label">Phone: </label>
+                                <input class="form-control" type="text" id="phone" name="phone" value="{{ auth()->user()->phone }}" autofocus="" >
+                                @error('phone')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+   
+                            <div class="mb-3 col-md-6">
+                                <label for="city" class="form-label">City: </label>
+                                <input class="form-control" type="text" id="city" name="city" value="{{ auth()->user()->city }}" autofocus="" >
+                                @error('city')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="bio" class="form-label">About Me (Bio):</label>
+                                <textarea class="form-control" id="bio" name="bio" rows="4">{{ auth()->user()->bio }}</textarea>
+                                @error('bio')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="mb-3 col-md-12">
+                                <label for="skills" class="form-label">Skills (comma-separated):</label>
+                                <input class="form-control" type="text" id="skills" name="skills" value="{{ auth()->user()->skills }}">
+                                <small class="text-muted">Example: HTML, CSS, Laravel, React</small>
+                                @error('skills')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="mb-3 col-md-6">
+                                <label for="education" class="form-label">Education:</label>
+                                <input class="form-control" type="text" id="education" name="education" value="{{ auth()->user()->education }}">
+                                @error('education')
+                                <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        
+                            <div class="mb-3 col-md-6">
+                                <label for="experience" class="form-label">Experience:</label>
+                                <input class="form-control" type="text" id="experience" name="experience" value="{{ auth()->user()->experience }}">
+                                <small class="text-muted">E.g. 2 years as frontend dev</small>
+                                @error('experience')
+                                    <span role="alert" class="text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-0">
+                            <div class="col-md-12 offset-md-5">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Upload Profile') }}
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 @endsection

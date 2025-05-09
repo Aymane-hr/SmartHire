@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('cv_id')->references('id')->on('cvs');
             $table->integer('skill_id')->nullable();
             $table->foreign('skill_id')->references('id')->on('skills');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();
