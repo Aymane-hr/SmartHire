@@ -11,7 +11,7 @@ class CandidatApplicationController extends Controller
 {
     public function index()
     {
-        $applications = Application::where('user_id', Auth::id())->get();
+        $applications = Application::where('user_id', Auth::id())->paginate(10);
         return view('candidat.applications.index', compact('applications'));
     }
 

@@ -77,6 +77,12 @@
                 </a>
             </li>
 
+            <li class="dropdown {{ request()->routeIs('les offers') ? 'active' : '' }}">
+                <a href="{{ route('candidat.jobs.index') }}" class="nav-link">
+                    <i data-feather="monitor"></i><span>Les offers</span>
+                </a>
+            </li>
+
             <li class="dropdown {{ request()->routeIs('candidat.applications.*') ? 'active' : '' }}">
                 <a href="{{ route('candidat.applications.index') }}" class="nav-link">
                     <i data-feather="file-text"></i><span>My Applications</span>

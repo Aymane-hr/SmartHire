@@ -134,11 +134,9 @@
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="/avatars/{{ auth()->user()->avatar }}"
                     class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
             <div class="dropdown-menu dropdown-menu-right pullDown">
-                <div class="dropdown-title">Hello Sarah Smith</div>
-                <a href="profile.html" class="dropdown-item has-icon"> <i class="far
+                <div class="dropdown-title">Hello {{ auth()->user()->name }}</div>
+                <a href="{{ route('candidat.profile.index') }}" class="dropdown-item has-icon"> <i class="far
 										fa-user"></i> Profile
-                </a> <a href="timeline.html" class="dropdown-item has-icon"> <i class="fas fa-bolt"></i>
-                    Activities
                 </a> <a href="#" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
                     Settings
                 </a>

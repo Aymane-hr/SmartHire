@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('file_path')->nullable();
             $table->text('extracted_text')->nullable();
             $table->float('score')->nullable();
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

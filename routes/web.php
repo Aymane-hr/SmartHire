@@ -64,12 +64,22 @@ Route::prefix('recruiter')->middleware(['auth', 'is_recruiter'])->name('recruite
 use App\Http\Controllers\Candidat\CandidatDashboardController;
 use App\Http\Controllers\Candidat\CandidatApplicationController;
 use App\Http\Controllers\Candidat\CandidatMessageController;
-use App\Http\Controllers\Candidat\CandidatProfileController;
+
+use App\Http\Controllers\Candidat\CandidatJobController;
 
 Route::prefix('candidat')->middleware(['auth', 'is_user'])->name('candidat.')->group(function () {
     Route::get('/dashboard', [CandidatDashboardController::class, 'index'])->name('dashboard');
     Route::resource('applications', CandidatApplicationController::class);
     Route::resource('messages', CandidatMessageController::class);
+    
+    Route::get('/jobs', [CandidatJobController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/{id}', [CandidatJobController::class, 'show'])->name('jobs.show');
+    Route::post('/jobs/apply', [CandidatJobController::class, 'storeApplication'])->name('jobs.storeApplication');
+});
+
+use App\Http\Controllers\Candidat\CandidatProfileController;
+
+Route::middleware(['auth'])->name('candidat.')->group(function () {
     Route::get('/profile', [CandidatProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile', [CandidatProfileController::class, 'store'])->name('profile.store');
 });

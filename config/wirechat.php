@@ -16,7 +16,7 @@ return [
     | migrations generate UUID-based keys or unsigned big integers.
     |
     */
-    'uuids' => false,
+    'uuids' => true,
 
     /*
     |--------------------------------------------------------------------------
